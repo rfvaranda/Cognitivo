@@ -1,0 +1,51 @@
+# ----------------------------------------------------
+# Codigo para converter arquivo CSV em parquet 
+# Converter as colunas para datatype solicitado
+# Retornar os registros com sua ultima atualizacao
+#
+# Autor: Rafael Varanda
+# ----------------------------------------------------
+
+from pyspark import sql, SparkContext
+from pyspark.sql.functions import *
+
+sc.stop()
+sc = SparkContext("local", "Read_CSV")
+sqlContext = SQLContext(sc)
+
+
+# le arquivo em csv já fazendo a conversao dos tipos usando opcao inferSchema=True
+
+df = sqlContext.read.csv("/tmp/load.csv", header=True, sep="," ,inferSchema=True)
+
+# lista a estrutura do dataframe , mostrando já os campos convertidos
+
+df.printSchema()
+
+# transforma arquivo de CSV para Parquet
+
+df.write.parquet("/tmp/load_parquet/")
+
+# Cria Dataframe df2 lendo o arquivo parquet
+
+df2 = sqlContext.read.parquet("/tmp/load_parquet/")
+df2.show()
+
+# Registar o Dataframe df2 com uma table temporaria chamada users
+
+df2.registerTempTable("users")
+
+# Cria Dataframe df3 com a maior data para cada id 
+
+df3=df.groupBy("id").agg(max("update_date").alias("data"))      
+df3.show()
+
+# Registar o Dataframe df3 com uma table temporaria chamada dates
+
+df3.registerTempTable("dates")
+
+# Cria Dataframe df4 com o join das duas tabelas, resultando no registro mais recente de cada id
+
+df4=sqlContext.sql("select u.* from users u inner join  dates d where u.id = d.id and u.update_date = d.data")
+df4.show()
+
