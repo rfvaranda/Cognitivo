@@ -8,8 +8,11 @@ para um formato colunar de alta performance de leitura de sua escolha. Justifica
 CSV to Parquet  -  Justificativas:
 
 1 – Como somente as colunas necessárias são escaneadas as consultas tendem a ser muito mais rápidas.
+
 2 – É possível otimizar o fluxo de dados entre o processador e a memória.
+
 3 – Os dados são mais facilmente comprimidos, pois os dados em forma de colunas são mais semelhantes entre si do que em linhas.
+
 4 – Os dados em ‘Parquet’ já vem mapeados.
 
 2. Deduplicação dos dados convertidos: No conjunto de dados convertidos haverão múltiplas entradas para um mesmo registro, 
