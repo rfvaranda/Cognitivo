@@ -28,4 +28,9 @@ data de atualização (update_date) para definição do registro mais recente;
  
     Foi utilizado a opção inferSchema=True no momento da leitura do CSV original.
     
+4. Todas as operações devem ser realizadas utilizando Spark. O serviço de execução fica a seu critério, 
+podendo utilizar tanto serviços locais como serviços em cloud. Justificar brevemente o serviço escolhido (EMR, Glue, Zeppelin, etc.)
+
+    Foi utilizado um cluster Hadoop, pela facilidade de utilização do pyspark para leitura e conversão dos arquivos.
+    
 
