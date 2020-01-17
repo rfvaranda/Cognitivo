@@ -20,5 +20,12 @@ variando apenas os valores de alguns dos campos entre elas. Será necessário re
 a fim de apenas manter a última entrada de cada registro, usando como referência o id para identificação dos registros duplicados e a 
 data de atualização (update_date) para definição do registro mais recente;
 
-    Foi utilizado agregação no dataframe pra identificar a maior data para cada id e depois feito join com o dataframe original.
+    Foi utilizado agregação no dataframe para identificar a maior data para cada id e depois feito join com o dataframe original.
+    
+3. Conversão do tipo dos dados deduplicados: No diretório config haverá um arquivo JSON de configuração (types_mapping.json),
+ contendo os nomes dos campos e os respectivos tipos desejados de output. Utilizando esse arquivo como input, realizar um processo
+ de conversão dos tipos dos campos descritos, no conjunto de dados deduplicados;
+ 
+    Foi utilizado a opção inferSchema=True no momento da leitura do CSV original.
+    
 
